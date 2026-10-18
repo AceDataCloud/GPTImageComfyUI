@@ -119,6 +119,17 @@ TOOL_SPECS = {'gpt_image_edit_image': {'models': ['dall-e-2',
 SENTINEL = '(from JSON/default)'
 
 
+def _check_comfy_interruption() -> None:
+    # Lazy import keeps API contract tooling usable outside a ComfyUI process.
+    try:
+        from comfy.model_management import throw_exception_if_processing_interrupted
+    except ModuleNotFoundError as exc:
+        if exc.name in {'comfy', 'comfy.model_management'}:
+            return
+        raise
+    throw_exception_if_processing_interrupted()
+
+
 def _credential() -> str:
     token = os.environ.get('ACEDATACLOUD_API_KEY') or os.environ.get('ACEDATACLOUD_API_TOKEN')
     if not token or not token.strip():
@@ -182,7 +193,9 @@ class _ToolNode:
             if not isinstance(ids, list) or not ids:
                 raise ValueError('ids_json must be a nonempty JSON array of task IDs.')
             parameters['ids'] = ids
-        result = AceDataGPTImageClient(_credential()).invoke(self.TOOL, parameters)
+        result = AceDataGPTImageClient(
+            _credential(), check_interrupted=_check_comfy_interruption
+        ).invoke(self.TOOL, parameters)
         urls = result.get('media_urls') or []
         if not isinstance(urls, list):
             urls = []

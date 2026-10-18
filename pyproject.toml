@@ -1,7 +1,7 @@
 [project]
 name = "gpt-image"
 version = "0.1.0"
-description = "GPT Image Dify-parity tools through Ace Data Cloud for ComfyUI"
+description = "GPT Image generation and editing, same-task lookup, and native image loading through Ace Data Cloud"
 license = { file = "LICENSE" }
 requires-python = ">=3.10"
 dependencies = ["requests>=2.31,<3", "jsonschema>=4,<5"]
