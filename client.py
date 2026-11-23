@@ -546,6 +546,8 @@ class AceDataGPTImageClient:
 
 
 def adapt_parameters(tool: str, params: dict[str, Any], endpoint: dict[str, Any]) -> dict[str, Any]:
+    if endpoint["operation"] == "edit" and ({"mask", "mask_url"} & params.keys()):
+        raise ValueError("A separate mask requires the multipart editing API; this node accepts image URLs.")
     if "count" in params:
         params["n"] = params.pop("count")
     if "image_urls" in params:
@@ -561,4 +563,23 @@ def finalize_payload(
 ) -> dict[str, Any]:
     if endpoint["operation"] == "edit" and not body.get("image"):
         raise ValueError("Reference images are required for editing.")
+    if endpoint["operation"] in {"generate", "edit"}:
+        model = body.get("model")
+        quality = body.get("quality")
+        size = body.get("size")
+        if model == "dall-e-2":
+            if quality not in {None, "standard"}:
+                raise ValueError("DALL-E 2 quality must be standard or omitted.")
+            if size not in {None, "256x256", "512x512", "1024x1024"}:
+                raise ValueError("DALL-E 2 size must be 256x256, 512x512, 1024x1024 or omitted.")
+            images = body.get("image")
+            if endpoint["operation"] == "edit" and isinstance(images, list) and len(images) != 1:
+                raise ValueError("DALL-E 2 editing requires exactly one image URL.")
+        if model == "dall-e-3":
+            if quality not in {None, "standard", "hd"}:
+                raise ValueError("DALL-E 3 quality must be standard, hd or omitted.")
+            if size not in {None, "1024x1024", "1792x1024", "1024x1792"}:
+                raise ValueError("DALL-E 3 size must be 1024x1024, 1792x1024, 1024x1792 or omitted.")
+            if body.get("n", 1) != 1:
+                raise ValueError("DALL-E 3 requires n=1.")
     return body
