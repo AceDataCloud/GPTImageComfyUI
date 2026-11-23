@@ -10,26 +10,13 @@ import json
 import os
 
 from .api_contracts import ENDPOINTS
+from .image_contracts import IMAGE_CHOICES
 
 from .client import AceDataGPTImageClient
 
 SERVICE = 'GPT Image'
 MEDIA_TYPES = ('IMAGE',)
-TOOL_SPECS = {'gpt_image_edit_image': {'models': ['dall-e-2',
-                                     'dall-e-3',
-                                     'gpt-image-1',
-                                     'gpt-image-1.5',
-                                     'gpt-image-2',
-                                     'gpt-image-2.5-flare',
-                                     'gpt-image-2.5-flare:official',
-                                     'gpt-image-2.5-sunburst',
-                                     'gpt-image-2.5-sunburst:official',
-                                     'gpt-image-2:reverse',
-                                     'gpt-image-2:official',
-                                     'nano-banana',
-                                     'nano-banana-2-lite',
-                                     'nano-banana-2',
-                                     'nano-banana-pro'],
+TOOL_SPECS = {'gpt_image_edit_image': {'models': IMAGE_CHOICES['edit']['model'],
                           'actions': [],
                           'operation': 'edit',
                           'label': 'GPT Image Edit Image',
@@ -45,21 +32,7 @@ TOOL_SPECS = {'gpt_image_edit_image': {'models': ['dall-e-2',
                                      'quality',
                                      'size',
                                      'callback_url']},
- 'gpt_image_generate_image': {'models': ['dall-e-2',
-                                         'dall-e-3',
-                                         'gpt-image-1',
-                                         'gpt-image-1.5',
-                                         'gpt-image-2',
-                                         'gpt-image-2.5-flare',
-                                         'gpt-image-2.5-flare:official',
-                                         'gpt-image-2.5-sunburst',
-                                         'gpt-image-2.5-sunburst:official',
-                                         'gpt-image-2:reverse',
-                                         'gpt-image-2:official',
-                                         'nano-banana',
-                                         'nano-banana-2-lite',
-                                         'nano-banana-2',
-                                         'nano-banana-pro'],
+ 'gpt_image_generate_image': {'models': IMAGE_CHOICES['generate']['model'],
                               'actions': [],
                               'operation': 'generate',
                               'label': 'GPT Image Generate Image',

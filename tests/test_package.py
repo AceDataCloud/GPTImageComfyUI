@@ -17,7 +17,7 @@ nodes = sys.modules['parity_comfy.nodes']
 client_module = sys.modules['parity_comfy.client']
 Client = client_module.AceDataGPTImageClient
 EXPECTED_TOOLS = ['gpt_image_edit_image', 'gpt_image_generate_image', 'gpt_image_list_tasks', 'gpt_image_task_retrieve', 'gpt_image_tasks_retrieve_batch']
-EXPECTED_MODELS = ['dall-e-2', 'dall-e-3', 'gpt-image-1', 'gpt-image-1.5', 'gpt-image-2', 'gpt-image-2.5-flare', 'gpt-image-2.5-flare:official', 'gpt-image-2.5-sunburst', 'gpt-image-2.5-sunburst:official', 'gpt-image-2:official', 'gpt-image-2:reverse', 'nano-banana', 'nano-banana-2', 'nano-banana-2-lite', 'nano-banana-pro']
+EXPECTED_MODELS = json.loads((ROOT / 'contracts/images.json').read_text())['generate']['fields']['model']['enum']
 
 
 class ParityTests(unittest.TestCase):

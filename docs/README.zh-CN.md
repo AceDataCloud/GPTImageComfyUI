@@ -9,7 +9,7 @@
 
 ## 当前版本与安装来源
 
-本源码版本为 **0.1.2**，版本 ZIP 见 [GitHub Releases](https://github.com/AceDataCloud/GPTImageComfyUI/releases)。下文 Registry 安装段保留 **2026-10-19 已核 Active 的 0.1.0**；该旧 ZIP 尚不包含本版更新的图文、示例或修复。需要本版时，使用对应 GitHub Release ZIP，或等 Registry 中准确的 **0.1.2** 变为 Active 后再手选该版本；不要用默认 nightly 代替已核 stable。
+本源码版本为 **0.1.3**，版本 ZIP 见 [GitHub Releases](https://github.com/AceDataCloud/GPTImageComfyUI/releases)。下文 Registry 安装段保留 **2026-11-23 已核 Active 的 0.1.0**；该旧 ZIP 尚不包含本版更新的图文、示例或修复。需要本版时，使用对应 GitHub Release ZIP，或等 Registry 中准确的 **0.1.3** 变为 Active 后再手选该版本；不要用默认 nightly 代替已核 stable。
 
 从 GitHub ZIP 安装：停止 ComfyUI，先备份已有同名节点目录，把 ZIP 内文件解压到 `ComfyUI/custom_nodes/gpt-image/`（不要多嵌套一层目录），在该目录运行 `python -m pip install -r requirements.txt`，然后重启并刷新。API Token 仍只配在实际启动进程环境中。GitHub ZIP 安装与 Registry/Manager 正式稳定版安装是不同路径。
 
@@ -48,7 +48,13 @@ export ACEDATACLOUD_API_KEY='在此粘贴自己的私有Token'
 python main.py --cpu
 ```
 
-在**实际 ComfyUI 进程环境**中设置 `ACEDATACLOUD_API_KEY`（也接受 `ACEDATACLOUD_API_TOKEN`），不要写进工作流或仓库。每个 Dify 工具对应一个节点；model/action 选择器覆盖 Dify YAML 的固定选项，其他字段有具名输入框，留空则省略。数组/对象字段在输入框填 JSON 字符串；高级参数也可放进 `parameters_json` JSON 对象，非空具名字段优先。选 `(from JSON/default)` 则使用 JSON 或 API 默认值。任务查询节点可填 `task_id`，批量查询节点可填 `ids_json`。完整字段和 model 列表见[英文主文档](../README.md)。
+在**实际 ComfyUI 进程环境**中设置 `ACEDATACLOUD_API_KEY`（也接受 `ACEDATACLOUD_API_TOKEN`），不要写进工作流或仓库。每个 Dify 工具对应一个节点；图像 model 选择器覆盖已核公开 API 合同的 24 个型号，其他字段有具名输入框，留空则省略。数组/对象字段在输入框填 JSON 字符串；高级参数也可放进 `parameters_json` JSON 对象，非空具名字段优先。选 `(from JSON/default)` 则使用 JSON 或 API 默认值。任务查询节点可填 `task_id`，批量查询节点可填 `ids_json`。完整字段和 model 列表见[英文主文档](../README.md)。
+
+0.1.3 在 `quality` / `size` 文本框和 JSON 均未填写时不发送这两个字段；它们不是 combo，不会隐式取第一项。已有非空 JSON/具名输入值原样保留。若要保留旧版空输入的请求默认值，请为支持它们的型号明确填写 `quality=auto`、`size=1024x1024`。DALL-E 2 支持 quality `standard`，size `256x256` / `512x512` / `1024x1024`；DALL-E 3 生成支持 quality `standard` / `hd`，size `1024x1024` / `1792x1024` / `1024x1792` 且输出数量只能为 1。显式不支持的值在发送前报错，不静默替换。生成合同共 8 个质量选项，编辑合同为 7 个（不含 `hd`），GPT Image 2.5/2.6 各变体还支持 `xhigh` / `max`。
+
+编辑继续使用 `image_urls` URL 输入，支持单 URL、JSON URL 数组或每行一个 URL。DALL-E 2 只能提供一张小于 4 MB 的正方形 PNG；未单独提供 mask 时，原图必须有透明区域来指定编辑位置。请提供符合要求、可访问的 PNG URL；本节点原样传 URL，不重编码、不抹除 Alpha。JSON 编辑协议没有独立 mask 字段；二进制 PNG mask 属于另一个 multipart 协议，因此本节点不增加 MASK 端口或 JSON mask 参数。其他 GPT 图像模型最多 16 张参考 URL。输出仍为 URL 字符串并接原生 IMAGE 加载节点；静态格式保留 PNG / JPEG / WebP。
+
+`contracts/images.json` 与 `scripts/sync_image_contracts.py` 管理已核 model/quality 选项；`--refresh` 只读取公开 API 文档，审查差异后用 `--check` 离线检查，不提交生成。原有节点 ID、widget 顺序和输出连接不变。
 
 导入 [01-configure-and-run.json](../examples/01-configure-and-run.json)，先填任务 ID 或 JSON 参数再运行。提交成功不代表媒体完成；用同一个任务 ID 查询至 `succeeded`，把 Ace CDN URL 接到相应 `IMAGE` 节点。收费提交失败时不会自动重试，先查请求记录和价格。删除/归档类动作仍需在 JSON 明确设置 `confirm: true`。详见[隐私说明](PRIVACY.md)。
 
