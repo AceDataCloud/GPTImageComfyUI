@@ -5,11 +5,11 @@ Use **GPT Image through Ace Data Cloud** directly in your ComfyUI workflow: subm
 [简体中文](docs/README.zh-CN.md) · [Ace Data Cloud](https://platform.acedata.cloud?utm_source=comfyui&utm_medium=referral&utm_campaign=evergreen&utm_content=gptimagecomfyui_readme_en_home) · [Issues](https://github.com/AceDataCloud/GPTImageComfyUI/issues)
 
 
-## Current version and install source
+## Registry versions
 
-This source version is **0.1.3**. Check [GitHub Releases](https://github.com/AceDataCloud/GPTImageComfyUI/releases) for its versioned ZIP. The Registry section below retains the last verified **Active 0.1.0 on 2026-11-23**; that older ZIP does not contain this release's updated guide, examples or fixes. To use this version, install its GitHub Release ZIP, or select the exact **0.1.3** Registry release once it becomes Active. Do not substitute the initial nightly selection for a verified stable release.
+As of November 25, 2026, install **0.1.0** in ComfyUI Manager. The Registry lists this version as **Active**. Its generation and editing nodes each offer 15 model choices. [Registry version history](https://api.comfy.org/nodes/gpt-image/versions)
 
-To install the GitHub ZIP, stop ComfyUI and back up any existing node directory. Extract the ZIP contents into `ComfyUI/custom_nodes/gpt-image/` without adding an extra nested directory, run `python -m pip install -r requirements.txt` there, then restart and refresh. Keep the API Token in the actual launch-process environment. A GitHub ZIP install is separate from a verified Registry/Manager stable installation.
+The source in this repository is **0.1.3**. The Registry marks this version **Flagged** and its public record gives no reason. The publisher is following up on the review. [Version status](https://api.comfy.org/nodes/gpt-image/versions/0.1.3) · [Publisher follow-up](https://github.com/AceDataCloud/GPTImageComfyUI/issues/7)
 
 ## Install
 
@@ -50,7 +50,7 @@ python main.py --cpu
 
 Set `ACEDATACLOUD_API_KEY` (or `ACEDATACLOUD_API_TOKEN`) in the **ComfyUI process environment** and restart. Keep the key out of workflow JSON, screenshots, issues, and the repository.
 
-Each Dify tool has its own node. The image model selectors expose the 24 choices in the reviewed public API contract. Other fields appear as named text or confirmation widgets; leave one empty to omit it. `parameters_json` accepts the same API fields as an advanced JSON object. A nonempty widget overrides the matching JSON field; `(from JSON/default)` keeps a model/action supplied by JSON or the API default. Arrays and objects can be entered as JSON strings in their named widgets. Task lookup nodes also offer `task_id` and `wait_seconds`; batch lookup nodes offer `ids_json`. Contract validation happens before a request. Paid submissions are never retried after a connection failure; preserve an accepted task ID and inspect request history before paying again.
+Each Dify tool has its own node. In source version 0.1.3, the image model selectors expose the 24 choices in the reviewed public API contract. Other fields appear as named text or confirmation widgets; leave one empty to omit it. `parameters_json` accepts the same API fields as an advanced JSON object. A nonempty widget overrides the matching JSON field; `(from JSON/default)` keeps a model/action supplied by JSON or the API default. Arrays and objects can be entered as JSON strings in their named widgets. Task lookup nodes also offer `task_id` and `wait_seconds`; batch lookup nodes offer `ids_json`. Contract validation happens before a request. Paid submissions are never retried after a connection failure; preserve an accepted task ID and inspect request history before paying again.
 
 | Dify tool | Required fields in JSON | Model choices | Action choices |
 | --- | --- | --- | --- |
@@ -103,4 +103,4 @@ python -m py_compile __init__.py client.py api_contracts.py nodes.py
 
 `pyproject.toml` declares short Registry ID `gpt-image`, publisher `acedatacloud`, and a 400×400 proportional resize of the [canonical Ace logo](https://cdn.acedata.cloud/assets/logo.png).
 
-Task lookup nodes refresh the same task on every queued execution rather than reusing a cached pending result. Paid submissions retain stable caching when inputs are unchanged, so refreshing a query does not resubmit generation. Disable auto-queue/auto-run before importing or running these workflows, and explicitly submit once.
+In source version 0.1.3, task lookup nodes refresh the same task on every queued execution rather than reusing a cached pending result. Paid submissions retain stable caching when inputs are unchanged, so refreshing a query does not resubmit generation. Disable auto-queue/auto-run before importing or running these workflows, and explicitly submit once.

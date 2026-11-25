@@ -7,11 +7,11 @@
 [English guide](../README.md)
 
 
-## 当前版本与安装来源
+## Registry 版本
 
-本源码版本为 **0.1.3**，版本 ZIP 见 [GitHub Releases](https://github.com/AceDataCloud/GPTImageComfyUI/releases)。下文 Registry 安装段保留 **2026-11-23 已核 Active 的 0.1.0**；该旧 ZIP 尚不包含本版更新的图文、示例或修复。需要本版时，使用对应 GitHub Release ZIP，或等 Registry 中准确的 **0.1.3** 变为 Active 后再手选该版本；不要用默认 nightly 代替已核 stable。
+截至 2026 年 11 月 25 日，在 ComfyUI Manager 中请选择 **0.1.0**。Registry 将这个版本标为 **Active**，生成与编辑节点各有 15 个模型选项。[版本列表](https://api.comfy.org/nodes/gpt-image/versions)
 
-从 GitHub ZIP 安装：停止 ComfyUI，先备份已有同名节点目录，把 ZIP 内文件解压到 `ComfyUI/custom_nodes/gpt-image/`（不要多嵌套一层目录），在该目录运行 `python -m pip install -r requirements.txt`，然后重启并刷新。API Token 仍只配在实际启动进程环境中。GitHub ZIP 安装与 Registry/Manager 正式稳定版安装是不同路径。
+当前仓库源码为 **0.1.3**。Registry 将该版本标为 **Flagged**，公开记录没有列出原因，发布者正在跟进复核。[版本状态](https://api.comfy.org/nodes/gpt-image/versions/0.1.3) · [发布者跟进单](https://github.com/AceDataCloud/GPTImageComfyUI/issues/7)
 
 ## 官方安装
 
@@ -48,7 +48,7 @@ export ACEDATACLOUD_API_KEY='在此粘贴自己的私有Token'
 python main.py --cpu
 ```
 
-在**实际 ComfyUI 进程环境**中设置 `ACEDATACLOUD_API_KEY`（也接受 `ACEDATACLOUD_API_TOKEN`），不要写进工作流或仓库。每个 Dify 工具对应一个节点；图像 model 选择器覆盖已核公开 API 合同的 24 个型号，其他字段有具名输入框，留空则省略。数组/对象字段在输入框填 JSON 字符串；高级参数也可放进 `parameters_json` JSON 对象，非空具名字段优先。选 `(from JSON/default)` 则使用 JSON 或 API 默认值。任务查询节点可填 `task_id`，批量查询节点可填 `ids_json`。完整字段和 model 列表见[英文主文档](../README.md)。
+在**实际 ComfyUI 进程环境**中设置 `ACEDATACLOUD_API_KEY`（也接受 `ACEDATACLOUD_API_TOKEN`），不要写进工作流或仓库。每个 Dify 工具对应一个节点；0.1.3 源码的图像模型选择器覆盖已核公开 API 合同的 24 个型号，其他字段有具名输入框，留空则省略。数组/对象字段在输入框填 JSON 字符串；高级参数也可放进 `parameters_json` JSON 对象，非空具名字段优先。选 `(from JSON/default)` 则使用 JSON 或 API 默认值。任务查询节点可填 `task_id`，批量查询节点可填 `ids_json`。完整字段和 model 列表见[英文主文档](../README.md)。
 
 0.1.3 在 `quality` / `size` 文本框和 JSON 均未填写时不发送这两个字段；它们不是 combo，不会隐式取第一项。已有非空 JSON/具名输入值原样保留。若要保留旧版空输入的请求默认值，请为支持它们的型号明确填写 `quality=auto`、`size=1024x1024`。DALL-E 2 支持 quality `standard`，size `256x256` / `512x512` / `1024x1024`；DALL-E 3 生成支持 quality `standard` / `hd`，size `1024x1024` / `1792x1024` / `1024x1792` 且输出数量只能为 1。显式不支持的值在发送前报错，不静默替换。生成合同共 8 个质量选项，编辑合同为 7 个（不含 `hd`），GPT Image 2.5/2.6 各变体还支持 `xhigh` / `max`。
 
@@ -82,4 +82,4 @@ python main.py --cpu
 | 提交超时或 HTTP 5xx | 重发收费提交前先查控制台请求记录。已有任务 ID 就查询原任务，不通过重复付费生成轮询。 |
 | 已完成但媒体加载失败 | 确认状态为 `succeeded`，使用该任务实际返回的 Ace CDN 媒体 URL，核对原生加载节点输入与宿主兼容性；不要用再次付费生成替代缺失结果。 |
 
-查询节点每次队列执行都会重新读取同一任务，不复用旧pending结果；收费提交在输入不变时仍保留缓存，避免查询时重发收费生成。导入或运行工作流前先关闭自动队列/自动运行，提交图只明确运行一次。
+0.1.3 源码中的查询节点每次队列执行都会重新读取同一任务，不复用旧 pending 结果；收费提交在输入不变时仍保留缓存，避免查询时重发收费生成。导入或运行工作流前先关闭自动队列/自动运行，提交图只明确运行一次。
