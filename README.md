@@ -13,7 +13,7 @@ The source in this repository is **0.1.3**. The Registry marks this version **Fl
 
 ## Install
 
-Open the official [GPT Image by Ace Data Cloud Registry page](https://registry.comfy.org/nodes/gpt-image), or open **Manager → Custom Nodes Manager** and search **GPT Image**. Use **Ace Data Cloud** as a fallback to find this publisher’s packages. Select **GPT Image by Ace Data Cloud**, confirm publisher **acedatacloud** and source repository [`AceDataCloud/GPTImageComfyUI`](https://github.com/AceDataCloud/GPTImageComfyUI), then click **Install**. In **Select Version**, explicitly select the approved Registry stable release **0.1.0**. The normal dialog may initially highlight **nightly**; do not accept it for this stable-release tutorial. Keep dependency installation enabled. After **Restart Required**, restart ComfyUI and refresh the browser. Registry ID: `gpt-image`.
+Open the official [GPT Image Registry page](https://registry.comfy.org/nodes/gpt-image), or open **Manager → Custom Nodes Manager** and search **GPT Image**. Use **Ace Data Cloud** as a fallback to find this publisher’s packages. Select **GPT Image**, confirm publisher **acedatacloud** and source repository [`AceDataCloud/GPTImageComfyUI`](https://github.com/AceDataCloud/GPTImageComfyUI), then click **Install**. In **Select Version**, explicitly select the approved Registry stable release **0.1.0**. The normal dialog may initially highlight **nightly**; do not accept it for this stable-release tutorial. Keep dependency installation enabled. After **Restart Required**, restart ComfyUI and refresh the browser. Registry ID: `gpt-image`.
 
 ![Actual ComfyUI-Manager list with this Ace service package](docs/images/manager-discovery.png)
 
