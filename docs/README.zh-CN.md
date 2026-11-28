@@ -15,7 +15,7 @@
 
 ## 官方安装
 
-打开官方 [GPT Image by Ace Data Cloud Registry 页面](https://registry.comfy.org/nodes/gpt-image)，或在 **Manager → Custom Nodes Manager** 搜索 **GPT Image**；找不到时再搜 **Ace Data Cloud**。选择 **GPT Image by Ace Data Cloud**，核对发布者 **acedatacloud** 和源码仓库 [`AceDataCloud/GPTImageComfyUI`](https://github.com/AceDataCloud/GPTImageComfyUI)，再点击 **Install**。在 **Select Version** 版本对话框明确选择已批准的 Registry 稳定版 **0.1.0**；普通对话框可能默认高亮 **nightly**，本教程不要直接接受该选项。保留依赖自动安装。出现 **Restart Required** 后重启 ComfyUI，并刷新浏览器。Registry ID 为 `gpt-image`。
+打开官方 [GPT Image Registry 页面](https://registry.comfy.org/nodes/gpt-image)，或在 **Manager → Custom Nodes Manager** 搜索 **GPT Image**；找不到时再搜 **Ace Data Cloud**。选择 **GPT Image**，核对发布者 **acedatacloud** 和源码仓库 [`AceDataCloud/GPTImageComfyUI`](https://github.com/AceDataCloud/GPTImageComfyUI)，再点击 **Install**。在 **Select Version** 版本对话框明确选择已批准的 Registry 稳定版 **0.1.0**；普通对话框可能默认高亮 **nightly**，本教程不要直接接受该选项。保留依赖自动安装。出现 **Restart Required** 后重启 ComfyUI，并刷新浏览器。Registry ID 为 `gpt-image`。
 
 ![真实 Manager 列表中的本服务节点包](images/manager-discovery.png)
 

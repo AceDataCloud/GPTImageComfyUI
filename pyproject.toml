@@ -1,6 +1,6 @@
 [project]
 name = "gpt-image"
-version = "0.1.3"
+version = "0.1.4"
 description = "GPT Image generation and editing, same-task lookup, and native image loading through Ace Data Cloud"
 license = { file = "LICENSE" }
 requires-python = ">=3.10"
@@ -14,5 +14,5 @@ Documentation = "https://github.com/AceDataCloud/GPTImageComfyUI#readme"
 
 [tool.comfy]
 PublisherId = "acedatacloud"
-DisplayName = "GPT Image by Ace Data Cloud"
+DisplayName = "GPT Image"
 Icon = "https://raw.githubusercontent.com/AceDataCloud/GPTImageComfyUI/main/assets/logo-400.png"
